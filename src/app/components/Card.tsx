@@ -1,7 +1,9 @@
+import Link from "next/link"
 
 
 function Card() {
   return (
+    <Link href="/restaurant/cnf">
     <div
           className="w-64 h-72 m-3 rounded overflow-hidden border cursor-pointer"
         >
@@ -24,6 +26,7 @@ function Card() {
             <p className="text-sm mt-1 font-bold">Booked 3 times today</p>
           </div>
         </div>
+        </Link>
   )
 }
 

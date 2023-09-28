@@ -1,3 +1,4 @@
+import Link from "next/link"
 
 
 function RestaurantCard() {
@@ -22,7 +23,7 @@ function RestaurantCard() {
         </div>
       </div>
       <div className="text-red-600">
-        <a href="">View more information</a>
+        <Link href="/restaurant/cnf">View more information</Link>
       </div>
     </div>
   </div>
