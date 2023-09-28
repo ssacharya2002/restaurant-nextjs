@@ -1,4 +1,7 @@
+import { Metadata } from "next";
 import Header from "./menu/components/Header";
+
+
 
 export default function RestaurantLauout({
   children,
