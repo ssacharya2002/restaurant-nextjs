@@ -10,7 +10,7 @@ function Sidebar({
 }: {
   locations: Location[];
   regions: Region[];
-  searchParams: { city?: string; region?: Region; price?: PRICE };
+  searchParams: { city?: string; region?: string; price?: PRICE };
 }) {
   const price = [
     {
@@ -33,8 +33,8 @@ function Sidebar({
   ];
 
   return (
-    <div className="w-1/5">
-      <div className="border-b pb-4">
+    <div className="w-1/5 ">
+      <div className="border-b pb-4 ">
         <h1 className="mb-2">Location</h1>
         {locations.map((location) => (
           <Link

@@ -1,9 +1,8 @@
 import { Metadata } from "next";
-import Navbar from "../components/Navbar";
 import Header from "./components/Header";
 import RestaurantCard from "./components/RestaurantCard";
 import Sidebar from "./components/Sidebar";
-import { PRICE, PrismaClient, Region } from "@prisma/client";
+import { PRICE, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -13,7 +12,38 @@ export const metadata: Metadata = {
   keywords: "nextjs,restaurant,search",
 };
 
-const searchRestaurnats = (city: string | undefined) => {
+interface searchParams {
+  city?: string;
+  region?: string;
+  price?: PRICE;
+}
+
+const searchRestaurnats = (searchParams: searchParams) => {
+  const where: any = {};
+
+  if (searchParams.city) {
+    const location = {
+      name: {
+        equals: searchParams.city.toLowerCase(),
+      },
+    };
+    where.location = location;
+  }
+  if (searchParams.region) {
+    const region = {
+      name: {
+        equals: searchParams.region.toLowerCase(),
+      },
+    };
+    where.region = region;
+  }
+  if (searchParams.price) {
+    const price = {
+      equals: searchParams.price,
+    };
+    where.price = price;
+  }
+
   const select = {
     id: true,
     name: true,
@@ -23,15 +53,8 @@ const searchRestaurnats = (city: string | undefined) => {
     region: true,
     slug: true,
   };
-  if (!city) return prisma.restaurant.findMany({ select });
   return prisma.restaurant.findMany({
-    where: {
-      location: {
-        name: {
-          equals: city.toLowerCase(),
-        },
-      },
-    },
+    where,
     select,
   });
 };
@@ -43,12 +66,8 @@ const fetchRegions = () => {
   return prisma.region.findMany();
 };
 
-async function searchPage({
-  searchParams,
-}: {
-  searchParams: { city?: string; region?: Region; price?: PRICE };
-}) {
-  const restaurnats = await searchRestaurnats(searchParams.city);
+async function searchPage({ searchParams }: { searchParams: searchParams }) {
+  const restaurnats = await searchRestaurnats(searchParams);
   const locations = await fetchLocations();
   const regions = await fetchRegions();
 
@@ -56,8 +75,11 @@ async function searchPage({
     <>
       <Header />
       <div className="flex py-4 m-auto w-2/3 justify-between items-start">
-        <Sidebar searchParams={searchParams} 
-        locations={locations} regions={regions} />
+        <Sidebar
+          searchParams={searchParams}
+          locations={locations}
+          regions={regions}
+        />
 
         <div className="w-5/6">
           {restaurnats.length
