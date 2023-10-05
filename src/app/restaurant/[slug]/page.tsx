@@ -1,9 +1,10 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Review } from "@prisma/client";
 import RestaurantNavbar from "./components/RestaurantNavbar";
-import restaurantTitle from "./components/restaurantTitle";
-import restaurantRating from "./components/restaurantRating";
+import RestaurantTitle from "./components/RestaurantTitle";
+import RestaurantRating from "./components/RestaurantRating";
 import RestaurantDescription from "./components/RestaurantDescription";
 import RestaurantImages from "./components/RestaurantImages";
+import ReviewCard from "./components/ReviewCard";
 
 const prisma = new PrismaClient();
 
@@ -19,6 +20,7 @@ interface RestaurantType {
   images: string[];
   description: string;
   slug: string;
+  reviews: Review[];
 }
 
 const fetchRestaurant = async (slug: string): Promise<RestaurantType> => {
@@ -32,6 +34,7 @@ const fetchRestaurant = async (slug: string): Promise<RestaurantType> => {
       description: true,
       images: true,
       slug: true,
+      reviews: true,
     },
   });
 
@@ -43,18 +46,19 @@ const fetchRestaurant = async (slug: string): Promise<RestaurantType> => {
 };
 
 async function restaurantPage({ params }: props) {
+  console.log(params.slug);
+
   const restaurant = await fetchRestaurant(params.slug);
 
   return (
     <>
       <div className="flex m-auto w-2/3 justify-between items-start 0 -mt-11">
         <div className="bg-white w-[70%] rounded p-3 shadow">
-          
           <RestaurantNavbar slug={restaurant.slug} />
 
-          <restaurantTitle title={restaurant.name} />
+          <RestaurantTitle title={restaurant.name} />
 
-          <restaurantRating />
+          <RestaurantRating reviews={restaurant.reviews} />
 
           <RestaurantDescription description={restaurant.description} />
 
@@ -62,32 +66,14 @@ async function restaurantPage({ params }: props) {
 
           <div>
             <h1 className="font-bold text-3xl mt-10 mb-7 borber-b pb-5">
-              What 100 people are saying
+              What {restaurant.reviews.length}{" "}
+              {restaurant.reviews.length === 1 ? "person" : "people"} are saying
             </h1>
             <div>
               {/* REVIEW CARD */}
-              <div className="border-b pb-7 mb-7">
-                <div className="flex">
-                  <div className="w-1/6 flex flex-col items-center">
-                    <div className="rounded-full bg-blue-400 w-16 h-16 flex items-center justify-center">
-                      <h2 className="text-white text-2xl">MJ</h2>
-                    </div>
-                    <p className="text-center">Micheal Jordan</p>
-                  </div>
-                  <div className="ml-10 w-5/6">
-                    <div className="flex items-center">
-                      <div className="flex mr-5">*****</div>
-                    </div>
-                    <div className="mt-5">
-                      <p className="text-lg font-light">
-                        Laurie was on top of everything! Slow night due to the
-                        snow storm so it worked in our favor to have more one on
-                        one with the staff. Delicious and well worth the money.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+             {restaurant.reviews.map((review)=>(
+               <ReviewCard review={review}  key={review.id}/>
+             ))}n 
               {/* REVIEW CARD */}
             </div>
           </div>
