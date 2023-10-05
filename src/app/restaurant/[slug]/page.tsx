@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import RestaurantNavbar from "./components/RestaurantNavbar";
-import RestaurnatTitle from "./components/RestaurnatTitle";
-import RestaurnatRating from "./components/RestaurnatRating";
+import restaurantTitle from "./components/restaurantTitle";
+import restaurantRating from "./components/restaurantRating";
 import RestaurantDescription from "./components/RestaurantDescription";
 import RestaurantImages from "./components/RestaurantImages";
 
@@ -52,9 +52,9 @@ async function restaurantPage({ params }: props) {
           
           <RestaurantNavbar slug={restaurant.slug} />
 
-          <RestaurnatTitle title={restaurant.name} />
+          <restaurantTitle title={restaurant.name} />
 
-          <RestaurnatRating />
+          <restaurantRating />
 
           <RestaurantDescription description={restaurant.description} />
 

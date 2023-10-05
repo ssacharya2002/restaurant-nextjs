@@ -1,4 +1,4 @@
-function RestaurnatRating() {
+function restaurantRating() {
   return (
     <div className="flex items-end">
       <div className="ratings mt-2 flex items-center">
@@ -12,4 +12,4 @@ function RestaurnatRating() {
   );
 }
 
-export default RestaurnatRating;
+export default restaurantRating;

@@ -2,7 +2,7 @@ import RestaurantsPrice from "@/app/components/RestaurantsPrice";
 import { Location, PRICE, Region } from "@prisma/client";
 import Link from "next/link"
 
-interface restaurnatProp {
+interface restaurantProp {
   location: Location
   region:Region
   id: number;
@@ -12,7 +12,7 @@ interface restaurnatProp {
   price: PRICE;
 }
 
-function RestaurantCard({restaurant}: {restaurant:restaurnatProp}) {
+function RestaurantCard({restaurant}: {restaurant:restaurantProp}) {
   return (
     <div className="border-b flex pb-5">
     <img

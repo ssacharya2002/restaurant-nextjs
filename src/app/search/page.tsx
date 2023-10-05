@@ -18,7 +18,7 @@ interface searchParams {
   price?: PRICE;
 }
 
-const searchRestaurnats = (searchParams: searchParams) => {
+const searchrestaurants = (searchParams: searchParams) => {
   const where: any = {};
 
   if (searchParams.city) {
@@ -67,7 +67,7 @@ const fetchRegions = () => {
 };
 
 async function searchPage({ searchParams }: { searchParams: searchParams }) {
-  const restaurnats = await searchRestaurnats(searchParams);
+  const restaurants = await searchrestaurants(searchParams);
   const locations = await fetchLocations();
   const regions = await fetchRegions();
 
@@ -82,11 +82,11 @@ async function searchPage({ searchParams }: { searchParams: searchParams }) {
         />
 
         <div className="w-5/6">
-          {restaurnats.length
-            ? restaurnats.map((restaurnat) => (
-                <RestaurantCard restaurant={restaurnat} />
+          {restaurants.length
+            ? restaurants.map((restaurant) => (
+                <RestaurantCard restaurant={restaurant} />
               ))
-            : "Sory no restaurnats found"}
+            : "Sory no restaurants found"}
         </div>
       </div>
     </>

@@ -16,7 +16,7 @@ function Menu({ items }: { items: Item[] }) {
           </div>
         ) : (
           <div className="flex flex-wrap justify-between">
-            <p>This restaurnat has no menu</p>
+            <p>This restaurant has no menu</p>
           </div>
         )}
       </div>
