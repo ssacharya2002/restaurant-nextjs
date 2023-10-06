@@ -1,6 +1,7 @@
 import Link from "next/link"
 import {RestaurantCardsType} from "../page"
 import RestaurantsPrice from "./RestaurantsPrice"
+import Stars from "./Stars"
 
 
 interface Props {
@@ -22,7 +23,7 @@ function Card({restaurant}:Props) {
           <div className="p-1">
             <h3 className="font-bold text-2xl mb-2">{restaurant.name}</h3>
             <div className="flex items-start">
-              <div className="flex mb-2">*****</div>
+             <Stars reviews={restaurant.reviews} />
               <p className="ml-2">{restaurant.reviews.length}  {restaurant.reviews.length === 1 ? "Review" : "Reviews"}</p>
             </div>
             <div className="flex text-reg font-light capitalize">

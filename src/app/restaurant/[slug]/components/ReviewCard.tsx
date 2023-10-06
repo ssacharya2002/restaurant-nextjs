@@ -1,3 +1,4 @@
+import Stars from "@/app/components/Stars";
 import { Review } from "@prisma/client";
 
 function ReviewCard({review}:{review:Review}) {
@@ -11,11 +12,12 @@ function ReviewCard({review}:{review:Review}) {
                 {review.last_name[0]}
             </h2>
           </div>
-          <p className="text-center">{review.first_name} {review.last_name}</p>
+          <p className="text-center">
+            {review.first_name} {review.last_name}</p>
         </div>
         <div className="ml-10 w-5/6">
           <div className="flex items-center">
-            <div className="flex mr-5">*****</div>
+           <Stars rating={review.rating} reviews={[]}/>
           </div>
           <div className="mt-5">
             <p className="text-lg font-light">
