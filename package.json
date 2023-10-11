@@ -13,16 +13,22 @@
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.12",
     "@prisma/client": "^5.3.1",
+    "@types/bcrypt": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.3",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
     "next": "latest",
     "prisma": "^5.3.1",
     "react": "latest",
     "react-dom": "latest",
-    "react-hook-form": "^7.47.0"
+    "react-hook-form": "^7.47.0",
+    "validator": "^13.11.0"
   },
   "devDependencies": {
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "@types/validator": "^13.11.2",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.30",
     "tailwindcss": "^3.3.3",
