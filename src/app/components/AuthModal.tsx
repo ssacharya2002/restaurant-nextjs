@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import AuthModalInputs from "./AuthModalInputs";
+import { useForm,SubmitHandler } from "react-hook-form";
 
 const style = {
   position: "absolute" as "absolute",
@@ -22,11 +23,30 @@ export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const {register, handleSubmit , formState:{errors}} = useForm<formData>({
+    // defaultValues:{
+    //   firstName:"kjwdfakfjh",
+    //   lastName:"lasidgufad",
+    //   email:"asfja@mljngg",
+    //   phoneNumber:1345679082,
+    //   password:"adfnasdfhuiasdf",
+    //   city:'adfasdf'
+    // }
+  });
+
+  interface formData{
+    firstName:string,
+    lastName:string,
+    email:string,
+    phoneNumber:number,
+    city:string,
+  }
 
   const renderContent = (signInContent: string, signUpContent: string) => {
     return isSignedIn ? signInContent : signUpContent;
   };
 
+  const onsubmit: SubmitHandler<formData> = (data)=> console.log(data);
   return (
     <div>
       <button
@@ -57,8 +77,8 @@ export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
                 )}
               </h2>
             </div>
-            <AuthModalInputs />
-            <button className="uppercase bg-red-600 w-full text-white p-3 rounded text-sm mb-5 disabled:bg-gray-400">
+            <AuthModalInputs register={register} errors={errors}/>
+            <button onClick={handleSubmit(onsubmit)} className="uppercase bg-red-600 w-full text-white p-3 rounded text-sm mb-5 disabled:bg-gray-400">
               {renderContent("Sign In", "Create Your Opentable Account")}
             </button>
           </div>
